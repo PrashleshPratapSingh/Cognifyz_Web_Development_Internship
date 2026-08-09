@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 2 Task 2 - Responsive Design</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================================
+           BASE
+        ============================================================ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --blue:   #1a73e8;
+            --red:    #ea4335;
+            --yellow: #fbbc04;
+            --green:  #34a853;
+            --dark:   #202124;
+            --gray:   #5f6368;
+            --border: #dadce0;
+            --bg:     #f8f9fa;
+            --white:  #ffffff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        img { max-width: 100%; }
+
+        /* ============================================================
+           NAVIGATION
+        ============================================================ */
+        nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        /* Desktop nav links */
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 8px 14px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background .15s, color .15s;
+        }
+
+        .nav-links a:hover { background: #f1f3f4; color: var(--dark); }
+        .nav-links a.active { color: var(--blue); }
+
+        /* Hamburger button — hidden on desktop */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 36px;
+            height: 36px;
+            padding: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .hamburger:hover { background: #f1f3f4; }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            background: var(--gray);
+            border-radius: 2px;
+            transition: transform .3s, opacity .2s;
+        }
+
+        /* Animate into X when open */
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ============================================================
+           HERO SECTION
+        ============================================================ */
+        .hero {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 64px 24px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--blue);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 10px 28px;
+            border-radius: 4px;
+            transition: background .2s;
+        }
+
+        .btn-primary:hover { background: #1557b0; }
+
+        /* ============================================================
+           MAIN CONTENT — 3 COLUMN GRID
+        ============================================================ */
+        .main {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .section-sub {
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 36px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px 24px;
+            box-shadow: 0 1px 2px rgba(60,64,67,.1);
+            transition: box-shadow .2s, transform .2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(60,64,67,.15);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+
+        .bg-blue   { background: #e8f0fe; }
+        .bg-red    { background: #fce8e6; }
+        .bg-green  { background: #e6f4ea; }
+
+        .card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+        .card p  { font-size: 0.875rem; color: var(--gray); line-height: 1.5; }
+
+        /* ============================================================
+           FOOTER
+        ============================================================ */
+        footer {
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 20px 24px;
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* ============================================================
+           CSS MEDIA QUERIES — RESPONSIVE LAYOUT
+        ============================================================ */
+
+        /* Tablet: 2-column card grid */
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 { font-size: 1.75rem; }
+        }
+
+        /* Mobile: show hamburger, collapse nav into dropdown */
+        @media (max-width: 640px) {
+            .hamburger { display: flex; }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: var(--white);
+                border-bottom: 1px solid var(--border);
+                padding: 8px 0;
+                box-shadow: 0 4px 8px rgba(0,0,0,.08);
+            }
+
+            .nav-links.open { display: flex; }
+
+            .nav-links a {
+                padding: 12px 24px;
+                font-size: 0.95rem;
+                border-radius: 0;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero { padding: 40px 24px; }
+            .hero h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <a class="brand" href="#">Cognifyz</a>
+
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#work">Our Work</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>Responsive Web Design</h1>
+        <p>This page adapts its layout across desktop, tablet, and mobile screen sizes using CSS media queries.</p>
+        <a class="btn-primary" href="#work">See Our Work</a>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main" id="work">
+        <h2 class="section-title">What We Build</h2>
+        <p class="section-sub">Resize the browser to see the layout respond at different breakpoints.</p>
+
+        <div class="cards">
+            <div class="card">
+                <div class="card-icon bg-blue">&#9889;</div>
+                <h3>Performance</h3>
+                <p>Lightweight, optimised code that loads fast on any network connection and device.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon bg-red">&#9654;</div>
+                <h3>Responsive Design</h3>
+                <p>Fluid layouts that adapt using CSS media queries — no JavaScript needed for layout changes.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-icon bg-green">&#9650;</div>
+                <h3>Mobile Navigation</h3>
+                <p>A hamburger menu appears on smaller screens, keeping navigation clean and accessible.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        Cognifyz Technologies — Web Development Internship &copy; 2026 &nbsp;|&nbsp; Level 2, Task 2
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks  = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('open');
+            });
+        });
+    </script>
+
+</body>
+</html>
