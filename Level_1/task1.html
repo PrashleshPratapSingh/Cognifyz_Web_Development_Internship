@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1 Task 1 - HTML & CSS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --blue:   #1a73e8;
+            --dark:   #202124;
+            --gray:   #5f6368;
+            --border: #dadce0;
+            --bg:     #f8f9fa;
+            --white:  #ffffff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+        }
+
+        /* ── Navigation Menu (3 links) ── */
+        nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--dark);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--gray);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .nav-links a:hover        { background: #f1f3f4; color: var(--dark); }
+        .nav-links a.nav-active   { color: var(--blue); }
+
+        /* ── Page layout ── */
+        .page {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        /* Section label */
+        .label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--blue);
+            margin-bottom: 6px;
+        }
+
+        /* ── Section 1: Heading + Paragraph + Image ── */
+        .article-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(60,64,67,.1);
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .article-body {
+            padding: 28px 32px;
+        }
+
+        .article-body h1 {
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .article-body p {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* ── Section 2: Form ── */
+        .form-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 1px 2px rgba(60,64,67,.1);
+            max-width: 520px;
+        }
+
+        .form-card h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            font-family: 'Roboto', sans-serif;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            color: var(--dark);
+        }
+
+        .form-group input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(26,115,232,.15);
+        }
+
+        .btn-submit {
+            background: var(--blue);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 28px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-submit:hover { background: #1557b0; }
+
+        .form-success {
+            display: none;
+            margin-top: 14px;
+            padding: 10px 14px;
+            background: #e6f4ea;
+            color: #137333;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Menu with 3 links -->
+    <nav>
+        <div class="nav-inner">
+            <a class="nav-brand" href="#">Cognifyz</a>
+            <ul class="nav-links">
+                <li><a href="#section-article" class="nav-active">HTML/CSS</a></li>
+                <li><a href="#section-form">Form</a></li>
+                <li><a href="#section-nav">Navigation</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page">
+
+        <!-- Section 1: Heading + Paragraph + Image -->
+        <section id="section-article">
+            <p class="label">Task 1 — HTML & CSS &nbsp;/&nbsp; Heading, Paragraph & Image</p>
+            <div class="article-card">
+                <img
+                    src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=960&h=400&fit=crop"
+                    alt="Team working on web development"
+                >
+                <div class="article-body">
+                    <h1>Introduction to Web Development</h1>
+                    <p>
+                        Web development is the process of building and maintaining websites and web applications.
+                        It covers everything from structuring content with HTML to styling it with CSS and adding
+                        interactivity with JavaScript. Modern web development relies on frameworks, responsive
+                        design principles, and best practices to create experiences that work across all devices
+                        and screen sizes.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Form with input + submit -->
+        <section id="section-form">
+            <p class="label">Task 1 — HTML & CSS &nbsp;/&nbsp; Form with Input & Submit Button</p>
+            <div class="form-card">
+                <h2>Get in Touch</h2>
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="userName">Your Name</label>
+                        <input type="text" id="userName" placeholder="Enter your name" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit</button>
+                    <div class="form-success" id="formSuccess">
+                        Form submitted successfully!
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Section 3: Navigation Menu reference -->
+        <section id="section-nav">
+            <p class="label">Task 1 — HTML & CSS &nbsp;/&nbsp; Navigation Menu with 3 Links</p>
+            <div style="background:var(--white);border:1px solid var(--border);border-radius:8px;padding:24px 32px;box-shadow:0 1px 2px rgba(60,64,67,.1);">
+                <p style="font-size:0.875rem;color:var(--gray);">
+                    The navigation bar at the top of this page demonstrates the three-link navigation menu built with HTML and CSS.
+                    It includes <strong>HTML/CSS</strong>, <strong>Form</strong>, and <strong>Navigation</strong> links with hover states and an active indicator.
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function handleSubmit(e) {
+            e.preventDefault();
+            document.getElementById('formSuccess').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

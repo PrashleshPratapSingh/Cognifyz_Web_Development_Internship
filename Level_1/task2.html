@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 1 Task 2 - JavaScript</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --blue:   #1a73e8;
+            --red:    #ea4335;
+            --green:  #34a853;
+            --yellow: #fbbc04;
+            --dark:   #202124;
+            --gray:   #5f6368;
+            --border: #dadce0;
+            --bg:     #f8f9fa;
+            --white:  #ffffff;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--bg);
+            color: var(--dark);
+        }
+
+        /* ── Header ── */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        header span {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-left: 8px;
+        }
+
+        /* ── Page layout ── */
+        .page {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 48px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        .label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--blue);
+            margin-bottom: 6px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 1px 2px rgba(60,64,67,.1);
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .card p.desc {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        /* ── 1. Color-changing button ── */
+        #colorBtn {
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: 'Roboto', sans-serif;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: var(--blue);
+            color: #fff;
+            transition: background 0.3s, transform 0.1s;
+            display: block;
+        }
+
+        #colorBtn:active { transform: scale(0.97); }
+
+        #colorCount {
+            margin-top: 14px;
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        /* ── 2. Greeting ── */
+        .greeting-box {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 24px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+        }
+
+        .greeting-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .greeting-text h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .greeting-text p {
+            font-size: 0.875rem;
+            color: var(--gray);
+        }
+
+        /* ── 3. Calculator ── */
+        .calc {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 360px;
+        }
+
+        .calc-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .calc-row label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--dark);
+            width: 80px;
+            flex-shrink: 0;
+        }
+
+        .calc-row input {
+            flex: 1;
+            padding: 10px 14px;
+            font-size: 1rem;
+            font-family: 'Roboto Mono', monospace;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            outline: none;
+            color: var(--dark);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .calc-row input:focus {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(26,115,232,.15);
+        }
+
+        .calc-divider {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        #calcBtn {
+            background: var(--blue);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+            align-self: flex-start;
+            transition: background 0.2s;
+        }
+
+        #calcBtn:hover { background: #1557b0; }
+
+        .calc-result {
+            display: none;
+            padding: 16px 20px;
+            background: #e8f0fe;
+            border-radius: 4px;
+            border-left: 4px solid var(--blue);
+        }
+
+        .calc-result .result-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--blue);
+            margin-bottom: 4px;
+        }
+
+        .calc-result .result-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            font-family: 'Roboto Mono', monospace;
+            color: var(--dark);
+        }
+
+        .calc-error {
+            display: none;
+            padding: 10px 16px;
+            background: #fce8e6;
+            color: #c5221f;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Level 1 — Task 2: JavaScript <span>Three interactive demonstrations</span></h1>
+    </header>
+
+    <div class="page">
+
+        <!-- ============================================================
+             1. Color-changing button
+        ============================================================ -->
+        <section>
+            <p class="label">JavaScript — Color-Changing Button</p>
+            <div class="card">
+                <h2>Button Color Change</h2>
+                <p class="desc">Click the button to cycle through different colors using JavaScript.</p>
+
+                <button id="colorBtn" onclick="changeColor()">Click to change color</button>
+                <p id="colorCount"></p>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             2. Greeting based on current time
+        ============================================================ -->
+        <section>
+            <p class="label">JavaScript — Time-Based Greeting</p>
+            <div class="card">
+                <h2>Time-Based Greeting</h2>
+                <p class="desc">JavaScript reads the current time and displays an appropriate greeting message.</p>
+
+                <div class="greeting-box">
+                    <div class="greeting-icon" id="greetingIcon"></div>
+                    <div class="greeting-text">
+                        <h3 id="greetingText"></h3>
+                        <p id="greetingTime"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+             3. Basic calculator (addition)
+        ============================================================ -->
+        <section>
+            <p class="label">JavaScript — Basic Calculator</p>
+            <div class="card">
+                <h2>Addition Calculator</h2>
+                <p class="desc">Enter two numbers and click Calculate to add them together.</p>
+
+                <div class="calc">
+                    <div class="calc-row">
+                        <label for="numA">First number</label>
+                        <input type="number" id="numA" placeholder="0">
+                    </div>
+                    <div class="calc-divider">+</div>
+                    <div class="calc-row">
+                        <label for="numB">Second number</label>
+                        <input type="number" id="numB" placeholder="0">
+                    </div>
+                    <button id="calcBtn" onclick="calculate()">Calculate</button>
+                    <div class="calc-result" id="calcResult">
+                        <div class="result-label">Result</div>
+                        <div class="result-value" id="resultValue"></div>
+                    </div>
+                    <div class="calc-error" id="calcError">Please enter valid numbers in both fields.</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        /* ── 1. Color-changing button ── */
+        const colors = [
+            { bg: '#1a73e8', label: 'Blue'   },
+            { bg: '#ea4335', label: 'Red'    },
+            { bg: '#34a853', label: 'Green'  },
+            { bg: '#fbbc04', label: 'Yellow' },
+            { bg: '#9334e6', label: 'Purple' },
+            { bg: '#e67c00', label: 'Orange' },
+        ];
+
+        let colorIndex = 0;
+        let clickCount = 0;
+
+        function changeColor() {
+            colorIndex = (colorIndex + 1) % colors.length;
+            clickCount++;
+            const btn = document.getElementById('colorBtn');
+            btn.style.background = colors[colorIndex].bg;
+            btn.style.color = colorIndex === 3 ? '#202124' : '#ffffff';
+            btn.textContent = colors[colorIndex].label;
+            document.getElementById('colorCount').textContent =
+                'Clicked ' + clickCount + ' time' + (clickCount === 1 ? '' : 's');
+        }
+
+        /* ── 2. Greeting based on current time ── */
+        function showGreeting() {
+            const hour = new Date().getHours();
+            const now  = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+            let greeting, icon;
+            if (hour >= 5 && hour < 12)      { greeting = 'Good Morning!';   icon = '🌤️'; }
+            else if (hour >= 12 && hour < 17) { greeting = 'Good Afternoon!'; icon = '☀️'; }
+            else if (hour >= 17 && hour < 21) { greeting = 'Good Evening!';   icon = '🌇'; }
+            else                              { greeting = 'Good Night!';     icon = '🌙'; }
+
+            document.getElementById('greetingText').textContent = greeting;
+            document.getElementById('greetingIcon').textContent = icon;
+            document.getElementById('greetingTime').textContent = 'Current time: ' + now;
+        }
+
+        showGreeting();
+
+        /* ── 3. Calculator ── */
+        function calculate() {
+            const a = parseFloat(document.getElementById('numA').value);
+            const b = parseFloat(document.getElementById('numB').value);
+
+            const resultEl = document.getElementById('calcResult');
+            const errorEl  = document.getElementById('calcError');
+            const valueEl  = document.getElementById('resultValue');
+
+            if (isNaN(a) || isNaN(b)) {
+                resultEl.style.display = 'none';
+                errorEl.style.display  = 'block';
+                return;
+            }
+
+            errorEl.style.display  = 'none';
+            resultEl.style.display = 'block';
+            valueEl.textContent    = a + ' + ' + b + ' = ' + (a + b);
+        }
+
+        // Allow Enter key in calculator inputs
+        document.getElementById('numA').addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); });
+        document.getElementById('numB').addEventListener('keydown', e => { if (e.key === 'Enter') calculate(); });
+    </script>
+
+</body>
+</html>
